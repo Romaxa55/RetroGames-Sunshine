@@ -1,9 +1,9 @@
-ARG SUNSHINE_VERSION='v0.21.0'
-ARG SUNSHINE_OS=archlinux
-ARG TARGETPLATFORM=linux/amd64
+ARG SUNSHINE_VERSION='latest'
+ARG SUNSHINE_OS='ubuntu-22.04'
 
-FROM --platform=$TARGETPLATFORM lizardbyte/sunshine:${SUNSHINE_VERSION}-${SUNSHINE_OS} as CORE
+FROM lizardbyte/sunshine:${SUNSHINE_VERSION}-${SUNSHINE_OS} as CORE
 
+#USER root
 # Обновление системы и установка необходимых пакетов
 #RUN pacman -Syu --noconfirm \
 #    && pacman -S --noconfirm retroarch steam \
@@ -15,4 +15,4 @@ FROM --platform=$TARGETPLATFORM lizardbyte/sunshine:${SUNSHINE_VERSION}-${SUNSHI
 # COPY ./config/kodi.conf /etc/kodi.conf
 
 # Определение точки входа
-ENTRYPOINT [ "sunshine" ]
+#ENTRYPOINT [ "steam", "&", "sunshine" ]

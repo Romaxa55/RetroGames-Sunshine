@@ -4,6 +4,8 @@ services:
     build: .
     container_name: sunshine
     restart: unless-stopped
+    volumes:
+      - ./config:/config
 #    volumes:
 #      - <path to data>:/config
 #    environment:
