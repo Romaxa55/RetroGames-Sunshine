@@ -1,18 +1,15 @@
 ARG SUNSHINE_VERSION='latest'
-ARG SUNSHINE_OS='ubuntu-22.04'
+ARG SUNSHINE_OS='fedora-37'
 
 FROM lizardbyte/sunshine:${SUNSHINE_VERSION}-${SUNSHINE_OS} as CORE
 
-#USER root
-# Обновление системы и установка необходимых пакетов
-#RUN pacman -Syu --noconfirm \
-#    && pacman -S --noconfirm retroarch steam \
-#    && pacman -S --noconfirm kodi
+USER root
+# Установка необходимых библиотек и X сервера
+RUN dnf update -y \
+    && dnf install -y libappindicator-gtk3 gtk3 libXtst xorg-x11-server-Xvfb \
+    && dnf clean all
 
-# Настройка RetroArch и Kodi (если нужно)
-# Например, можно скопировать предварительно настроенные конфигурационные файлы:
-# COPY ./config/retroarch.cfg /etc/retroarch.cfg
-# COPY ./config/kodi.conf /etc/kodi.conf
-
-# Определение точки входа
-#ENTRYPOINT [ "steam", "&", "sunshine" ]
+USER lizard
+# Настройка виртуального X сервера (Xvfb)
+ENV DISPLAY=:99
+CMD Xvfb :99 -screen 0 1024x768x16 &
