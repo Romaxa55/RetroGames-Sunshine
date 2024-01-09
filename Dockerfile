@@ -13,3 +13,5 @@ USER lizard
 # Настройка виртуального X сервера (Xvfb)
 ENV DISPLAY=:99
 CMD Xvfb :99 -screen 0 1024x768x16 &
+
+ENTRYPOINT ["/usr/bin/sunshine"]
